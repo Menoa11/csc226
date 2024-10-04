@@ -53,12 +53,28 @@ public class SpreadingTheNewsEM {
         }
     }
     public static int[] bfs(int start, List<List<Integer>> graph) {
-        //BEGIN STUDENT CODE
-        //implement the bfs function
-        //input: start node and graph
-        //output: an array of distances from the start node to all other nodes
-        //END STUDENT CODE
-        return null;
+        int n = graph.size();
+        int[] distance = new int[n];
+        Arrays.fill(distance, -1); // Initialize all distances to -1 (unvisited)
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+        distance[start] = 0; // Starting node has distance 0
+
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            int currentDistance = distance[current];
+            
+            // For each friend of the current employee
+            for (int neighbor : graph.get(current)) {
+                if (distance[neighbor] == -1) { // If not visited yet
+                    distance[neighbor] = currentDistance + 1; // Set distance
+                    queue.add(neighbor); // Add to the queue to process further
+                }
+            }
+        }
+
+    return distance;
     }
     
 }

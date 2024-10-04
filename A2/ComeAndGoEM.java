@@ -26,14 +26,15 @@ public class ComeAndGoEM {
                 int V = scanner.nextInt();
                 int W = scanner.nextInt();
                 int P = scanner.nextInt();
-                //BEGIN STUDENT CODE
-                //add corresponding edges to the graph and reverse graph
-                //END STUDENT CODE
                 
+                // One-way street: Add edge from V to W in graph, and reverse edge W to V in reverseGraph
+                graph.get(V).add(W);
+                reverseGraph.get(W).add(V);
+
+                // Two-way street: Add edges in both directions in both graphs
                 if (P == 2) {
-                    //BEGIN STUDENT CODE
-                    //add corresponding edges to the graph and reverse graph
-                    //END STUDENT CODE
+                    graph.get(W).add(V);
+                    reverseGraph.get(V).add(W);
                 }
             }
 
@@ -48,19 +49,41 @@ public class ComeAndGoEM {
     }
 
     static boolean isConnected(int N) {
-        //BEGIN STUDENT CODE
-        //implement the isConnected function
-        //input: number of nodes
-        //output: true if the graph is connected, false otherwise
-        //END STUDENT CODE
-        return false;
+        visited = new boolean[N + 1];
+        
+        // Run DFS on the original graph from node 1
+        dfs(1, graph);
+        
+        // Check if all nodes were visited
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i]) {
+                return false; // Not connected in original graph
+            }
+        }
+        
+        // Reset visited array for reverse graph
+        visited = new boolean[N + 1];
+        
+        // Run DFS on the reverse graph from node 1
+        dfs(1, reverseGraph);
+        
+        // Check if all nodes were visited in reverse graph
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i]) {
+                return false; // Not connected in reverse graph
+            }
+        }
+        
+        return true; // Graph is strongly connected
     }
 
     static void dfs(int node, List<List<Integer>> graph) {
-        //BEGIN STUDENT CODE
-        //implement the dfs function
-        //input: node and graph
-        //output: none (the function should update the visited array)
-        //END STUDENT CODE
+        visited[node] = true;
+        for (int neighbor : graph.get(node)) {
+            if (!visited[neighbor]) {
+                dfs(neighbor, graph);
+            }
+        }
     }
 }
+
