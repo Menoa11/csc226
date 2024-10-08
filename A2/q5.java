@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ComeAndGoEM {
+public class q5 {
     
     static List<List<Integer>> graph;
     static List<List<Integer>> reverseGraph;

@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class OrderingTasksEM {
+public class q7 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
